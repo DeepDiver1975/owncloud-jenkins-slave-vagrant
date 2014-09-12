@@ -48,10 +48,14 @@ mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest3; gr
 
 # setup pgsql
 sudo su - postgres <<'EOF'
-psql -c "DROP DATABASE IF EXISTS oc_autotest0; DROP ROLE IF EXISTS oc_autotest0; CREATE USER oc_autotest0 WITH SUPERUSER PASSWORD 'owncloud';"
-psql -c "DROP DATABASE IF EXISTS oc_autotest1; DROP ROLE IF EXISTS oc_autotest1; CREATE USER oc_autotest1 WITH SUPERUSER PASSWORD 'owncloud';"
-psql -c "DROP DATABASE IF EXISTS oc_autotest2; DROP ROLE IF EXISTS oc_autotest2; CREATE USER oc_autotest2 WITH SUPERUSER PASSWORD 'owncloud';"
-psql -c "DROP DATABASE IF EXISTS oc_autotest3; DROP ROLE IF EXISTS oc_autotest3; CREATE USER oc_autotest3 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP DATABASE IF EXISTS oc_autotest0;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest1;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest2;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest3;"
+psql -c "DROP ROLE IF EXISTS oc_autotest0; CREATE USER oc_autotest0 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest1; CREATE USER oc_autotest1 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest2; CREATE USER oc_autotest2 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest3; CREATE USER oc_autotest3 WITH SUPERUSER PASSWORD 'owncloud';"
 EOF
 sudo bash -c 'cat > /etc/postgresql/9.4/main/pg_hba.conf <<DELIM
 # Database administrative login by Unix domain socket
@@ -71,7 +75,11 @@ sudo service postgresql restart
 #setup oracle
 sudo dpkg --add-architecture i386
 sudo apt-get update
-#sudo bash ~/setup-oracle.sh
+sudo bash ~/setup-oracle.sh
+sudo bash -c 'cat > /etc/php5/mods-available/oci8.ini <<DELIM
+extension=oci8.so
+DELIM'
+sudo php5enmod oci8
 
 # install nodejs
 sudo apt-get -y install curl

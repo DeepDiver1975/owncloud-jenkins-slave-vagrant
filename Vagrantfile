@@ -64,6 +64,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     file.source      = 'jenkins.config'
     file.destination = '/home/vagrant/jenkins.config'
   end
+  config.vm.provision :file do |file|
+    file.source      = 'setup-oracle.sh'
+    file.destination = '/home/vagrant/setup-oracle.sh'
+  end
 
   config.vm.provision "shell", path: "setup.sh", privileged: false
   # An example Puppet manifest to provision the message of the day:
