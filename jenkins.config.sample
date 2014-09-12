@@ -1,0 +1,3 @@
+#!/bin/sh
+export SLAVE_NAME=TheNameOfTheSalveWhichWillBeGivenToYou
+export SLAVE_SECRET=ARandomStringWhichWillBeGivenToYou
