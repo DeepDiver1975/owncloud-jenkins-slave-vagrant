@@ -31,7 +31,7 @@ fi
 sudo apt-get update && sudo apt-get -y upgrade
 
 # install jenkins dependencies
-sudo apt-get -y install default-jre-headless git ant phpunit
+sudo apt-get -y install default-jre-headless git ant phpunit curl
 
 # install owncloud dependencies
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password your_password'
@@ -73,13 +73,36 @@ DELIM'
 sudo service postgresql restart
 
 #setup oracle
-sudo dpkg --add-architecture i386
-sudo apt-get update
-sudo bash ~/setup-oracle.sh
-sudo bash -c 'cat > /etc/php5/mods-available/oci8.ini <<DELIM
-extension=oci8.so
+if [ ! -f  /usr/lib/oracle/11.2/client64/bin/sqlplus ]; then
+  sudo dpkg --add-architecture i386
+  sudo apt-get update
+  sudo bash ~/setup-oracle.sh
+  sudo bash -c 'cat > /etc/php5/mods-available/oci8.ini <<DELIM
+  extension=oci8.so
 DELIM'
-sudo php5enmod oci8
+  sudo php5enmod oci8
+fi
+
+# install php 5.3
+if [ ! -f  /home/vagrant/.phpenv/bin/phpenv ]; then
+  sudo apt-get install libxml2-dev re2c libmcrypt-dev libcurl3-openssl-dev bison flex libjpeg62-dev libpng-dev libtidy-dev libxslt-dev
+  PHP_VERSION=5.3.28
+  export PHPENV_ROOT=/home/vagrant/.phpenv
+  rm -rf phpenv-install.sh
+  wget https://raw.github.com/CHH/phpenv/master/bin/phpenv-install.sh
+  bash phpenv-install.sh
+  mkdir /home/vagrant/.phpenv/plugins
+  cd /home/vagrant/.phpenv/plugins && git clone git://github.com/CHH/php-build.git
+  echo 'PATH=$HOME/.phpenv/bin:$PATH # Add phpenv to PATH for scripting' >> /home/vagrant/.bashrc
+  echo 'eval \"$(phpenv init -)\"' >> /home/vagrant/.bashrc
+  PHPDIR=/home/vagrant/.phpenv/versions/$PHP_VERSION
+  echo "Install PHP $PHP_VERSION"
+  mkdir -p phpdir
+  export PATH="/home/vagrant/.phpenv/bin:$PATH"
+  echo $PATH
+  export PHP_BUILD_CONFIGURE_OPTS="--with-libdir=/lib/x86_64-linux-gnu"
+  phpenv install $PHP_VERSION
+fi
 
 # install nodejs
 sudo apt-get -y install curl
