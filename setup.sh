@@ -81,6 +81,12 @@ if [ ! -f  /usr/lib/oracle/11.2/client64/bin/sqlplus ]; then
   extension=oci8.so
 DELIM'
   sudo php5enmod oci8
+
+  # increase open cursors
+  sqlplus -s -l / as sysdba <<EOF
+    ALTER SYSTEM SET open_cursors = 800 SCOPE=BOTH;
+EOF
+
 fi
 
 # install php 5.3
