@@ -32,6 +32,7 @@ sudo apt-get update && sudo apt-get -y upgrade
 
 # install jenkins dependencies
 sudo apt-get -y install default-jre-headless git ant phpunit curl
+echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 # install owncloud dependencies
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password your_password'
