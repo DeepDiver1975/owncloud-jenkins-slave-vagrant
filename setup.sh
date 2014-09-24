@@ -92,8 +92,7 @@ fi
 
 # install php 5.3
 if [ ! -f  /home/vagrant/.phpenv/bin/phpenv ]; then
-  sudo apt-get install libxml2-dev re2c libmcrypt-dev libcurl3-openssl-dev bison flex libjpeg62-dev libpng-dev libtidy-dev libxslt-dev libreadline-dev
-  PHP_VERSION=5.3.28
+  sudo apt-get install libxml2-dev re2c libmcrypt-dev libcurl3-openssl-dev bison flex libjpeg62-dev libpng-dev libtidy-dev libxslt-dev libreadline-dev libldap2-dev libpq-dev
   export PHPENV_ROOT=/home/vagrant/.phpenv
   rm -rf phpenv-install.sh
   wget https://raw.github.com/CHH/phpenv/master/bin/phpenv-install.sh
@@ -101,14 +100,23 @@ if [ ! -f  /home/vagrant/.phpenv/bin/phpenv ]; then
   mkdir /home/vagrant/.phpenv/plugins
   cd /home/vagrant/.phpenv/plugins && git clone git://github.com/CHH/php-build.git
   echo 'PATH=$HOME/.phpenv/bin:$PATH # Add phpenv to PATH for scripting' >> /home/vagrant/.bashrc
-  echo 'eval \"$(phpenv init -)\"' >> /home/vagrant/.bashrc
-  PHPDIR=/home/vagrant/.phpenv/versions/$PHP_VERSION
-  echo "Install PHP $PHP_VERSION"
-  mkdir -p phpdir
+  echo 'eval "$(phpenv init -)"' >> /home/vagrant/.bashrc
+
   export PATH="/home/vagrant/.phpenv/bin:$PATH"
-  echo $PATH
-  export PHP_BUILD_CONFIGURE_OPTS="--with-libdir=/lib/x86_64-linux-gnu"
-  phpenv install $PHP_VERSION
+  export PHP_BUILD_CONFIGURE_OPTS="--with-libdir=/lib/x86_64-linux-gnu --with-ldap --with-pgsql --with-pear"
+
+# export PHP_BUILD_CONFIGURE_OPTS="--enable-fileinfo --enable-hash --enable-json --enable-bcmath --with-bz2 --enable-ctype --with-iconv --with-gettext --with-pcre-regex --enable-phar --enable-simplexml --enable-dom --with-libxml-dir=/usr --enable-tokenizer --with-mhash=yes --with-gd --enable-calendar --enable-cli --enable-cgi --enable-gd-native-ttf --enable-mbregex --enable-wddx --enable-zend-multibyte --with-iodbc --with-ldap-sasl --with-ldap --with-pgsql --with-pear"
+  php_versions=( 5.3.28 5.4.32 5.5.16 5.6.0 )
+  for php_version in ${php_versions[@]} do
+    echo $php_version
+    echo "Install PHP $php_version"
+    phpenv install $php_version
+    # install oci
+    phpenv local $php_version
+    printf "/usr/lib/oracle/11.2/client64\n" | pecl install oci8
+    echo "extension = oci8.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+  done
 fi
 
 # install nodejs
