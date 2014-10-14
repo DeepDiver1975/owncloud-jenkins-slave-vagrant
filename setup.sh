@@ -145,9 +145,9 @@ sudo chown vagrant /var/jenkins
 
 cd /var/jenkins
 rm -rf slave.jar
-wget --no-check-certificate https://ci.owncloud.org/jnlpJars/slave.jar
+wget https://ci.owncloud.org/jnlpJars/slave.jar
 
 #start the slave
 echo "Starting Jenkins slave $SLAVE_NAME"
-java -jar slave.jar -noCertificateCheck -jnlpUrl https://ci.owncloud.org/computer/$SLAVE_NAME/slave-agent.jnlp -secret $SLAVE_SECRET &
+java -jar slave.jar -jnlpUrl https://ci.owncloud.org/computer/$SLAVE_NAME/slave-agent.jnlp -secret $SLAVE_SECRET &
 
