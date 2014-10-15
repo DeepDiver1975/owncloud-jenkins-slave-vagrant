@@ -107,7 +107,7 @@ fi
 
 # install php 5.3
 if [ ! -f  /home/vagrant/.phpenv/bin/phpenv ]; then
-  sudo apt-get install libxml2-dev re2c libmcrypt-dev libcurl3-openssl-dev bison flex libjpeg62-dev libpng-dev libtidy-dev libxslt-dev libreadline-dev libldap2-dev libpq-dev libbz2-dev libicu-dev libircclient-dev 
+  sudo apt-get install libxml2-dev re2c libmcrypt-dev libcurl3-openssl-dev bison flex libjpeg62-dev libpng-dev libtidy-dev libxslt-dev libreadline-dev libldap2-dev libpq-dev libbz2-dev libicu-dev libircclient-dev libmysqlclient-dev
   export PHPENV_ROOT=/home/vagrant/.phpenv
   rm -rf phpenv-install.sh
   wget https://raw.github.com/CHH/phpenv/master/bin/phpenv-install.sh
