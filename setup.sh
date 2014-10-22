@@ -53,6 +53,9 @@ mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest4; gr
 mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest5; grant all on oc_autotest5.* to 'oc_autotest5'@'localhost' IDENTIFIED BY 'owncloud';"
 mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest6; grant all on oc_autotest6.* to 'oc_autotest6'@'localhost' IDENTIFIED BY 'owncloud';"
 mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest7; grant all on oc_autotest7.* to 'oc_autotest7'@'localhost' IDENTIFIED BY 'owncloud';"
+mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest8; grant all on oc_autotest8.* to 'oc_autotest8'@'localhost' IDENTIFIED BY 'owncloud';"
+mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest9; grant all on oc_autotest9.* to 'oc_autotest9'@'localhost' IDENTIFIED BY 'owncloud';"
+mysql -u root -pyour_password -e "CREATE DATABASE IF NOT EXISTS oc_autotest10; grant all on oc_autotest10.* to 'oc_autotest10'@'localhost' IDENTIFIED BY 'owncloud';"
 
 # setup pgsql
 sudo su - postgres <<'EOF'
@@ -64,6 +67,9 @@ psql -c "DROP DATABASE IF EXISTS oc_autotest4;"
 psql -c "DROP DATABASE IF EXISTS oc_autotest5;"
 psql -c "DROP DATABASE IF EXISTS oc_autotest6;"
 psql -c "DROP DATABASE IF EXISTS oc_autotest7;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest8;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest9;"
+psql -c "DROP DATABASE IF EXISTS oc_autotest10;"
 psql -c "DROP ROLE IF EXISTS oc_autotest0; CREATE USER oc_autotest0 WITH SUPERUSER PASSWORD 'owncloud';"
 psql -c "DROP ROLE IF EXISTS oc_autotest1; CREATE USER oc_autotest1 WITH SUPERUSER PASSWORD 'owncloud';"
 psql -c "DROP ROLE IF EXISTS oc_autotest2; CREATE USER oc_autotest2 WITH SUPERUSER PASSWORD 'owncloud';"
@@ -72,6 +78,9 @@ psql -c "DROP ROLE IF EXISTS oc_autotest4; CREATE USER oc_autotest4 WITH SUPERUS
 psql -c "DROP ROLE IF EXISTS oc_autotest5; CREATE USER oc_autotest5 WITH SUPERUSER PASSWORD 'owncloud';"
 psql -c "DROP ROLE IF EXISTS oc_autotest6; CREATE USER oc_autotest6 WITH SUPERUSER PASSWORD 'owncloud';"
 psql -c "DROP ROLE IF EXISTS oc_autotest7; CREATE USER oc_autotest7 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest8; CREATE USER oc_autotest8 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest9; CREATE USER oc_autotest9 WITH SUPERUSER PASSWORD 'owncloud';"
+psql -c "DROP ROLE IF EXISTS oc_autotest10; CREATE USER oc_autotest10 WITH SUPERUSER PASSWORD 'owncloud';"
 EOF
 sudo bash -c 'cat > /etc/postgresql/9.4/main/pg_hba.conf <<DELIM
 # Database administrative login by Unix domain socket
