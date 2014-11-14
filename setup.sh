@@ -31,11 +31,11 @@ fi
 sudo apt-get update && sudo apt-get -y upgrade
 
 # install jenkins dependencies
-sudo apt-get -y install default-jre-headless git ant phpunit curl
+sudo apt-get -y install default-jre-headless git ant curl
 echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-#wget https://phar.phpunit.de/phpunit.phar
-#chmod +x phpunit.phar
-#sudo mv phpunit.phar /usr/local/bin/phpunit
+wget https://phar.phpunit.de/phpunit.phar
+chmod +x phpunit.phar
+sudo mv phpunit.phar /usr/local/bin/phpunit
 
 # install owncloud dependencies
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password your_password'
