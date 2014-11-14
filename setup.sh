@@ -31,7 +31,7 @@ fi
 sudo apt-get update && sudo apt-get -y upgrade
 
 # install jenkins dependencies
-sudo apt-get -y install default-jre-headless git ant curl
+sudo apt-get -y install default-jre-headless git ant curl docker.io
 echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 wget https://phar.phpunit.de/phpunit.phar
 chmod +x phpunit.phar
